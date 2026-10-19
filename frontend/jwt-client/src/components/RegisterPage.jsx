@@ -5,9 +5,10 @@ import {
   Typography,
   Container,
   Paper,
+  Link,
   Box,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerUser } from "../api/api";
 const Registerpage = () => {
@@ -144,7 +145,12 @@ const Registerpage = () => {
               textAlign="center"
             >
               Already registered?{""}
-              <Link href="/login" underline="hover" sx={{ fontWeight: 600 }}>
+              <Link
+                component={RouterLink}
+                to="/login"
+                underline="hover"
+                sx={{ fontWeight: 600 }}
+              >
                 Login
               </Link>
             </Typography>
