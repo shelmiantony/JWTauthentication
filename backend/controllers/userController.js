@@ -28,6 +28,7 @@ const loginUser = async (req, res) => {
       _id: currentUser._id,
       username: currentUser.username,
       email: currentUser.email,
+      role: currentUser.role,
     });
   }
   return res.status(400).send("Invalid credentials");
