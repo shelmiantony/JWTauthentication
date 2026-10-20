@@ -3,8 +3,8 @@ import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
 
 const createUser = async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
+  const { username, email, password, role } = req.body;
+  if (!username || !email || !password || !role) {
     return res.status(400).send("please fill all fields");
   }
   const userExist = await User.findOne({ email });
@@ -14,7 +14,7 @@ const createUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
 
-  const newUser = new User({ username, email, password: hashPassword });
+  const newUser = new User({ username, email, password: hashPassword, role });
   await newUser.save();
   createToken(res, newUser._id);
   return res.status(201).json({ _id: newUser._id, username: username });
