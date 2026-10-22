@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
-
+import adminRoutes from "./routes/adminRoutes.js";
 dotenv.config();
 
 const port = process.env.PORT || 8000;
@@ -26,7 +26,8 @@ app.get("/api/health", (req, res) => {
 
 // ✅ User routes
 app.use("/api/users", userRoutes);
-
+//admin routes
+app.use("/api/admin", adminRoutes);
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);

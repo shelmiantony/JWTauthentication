@@ -12,9 +12,6 @@ router.post("/register", createUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/profile", protect, getProfile);
-router.get("/admin-dashboard", protect, authorizedRoles("admin"), (req, res) => {
-  res.json({ message: "Admin dashboard data" });
-});
 
 // Mechanic-only route
 router.get(

@@ -14,7 +14,15 @@ const createUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
 
-  const newUser = new User({ username, email, password: hashPassword, role });
+  // Keep the stored role format consistent with the schema while accepting the
+  // hyphenated value used by the client.
+  const normalizedRole = role === "service-manager" ? "service_manager" : role;
+  const newUser = new User({
+    username,
+    email,
+    password: hashPassword,
+    role: normalizedRole,
+  });
   await newUser.save();
   createToken(res, newUser._id);
   return res.status(201).json({ _id: newUser._id, username: username });
