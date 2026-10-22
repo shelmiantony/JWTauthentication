@@ -33,7 +33,7 @@ export const createServiceRequest = async (req, res) => {
   }
 };
 export const getMyJobs = async (req, res) => {
-  const jobs = await ServiceRequest.find()
+  const jobs = await ServiceRequest.find({ assignedMechanic: req.user._id })
     .populate("customer", "username email role")
     .populate("assignedMechanic", "username email");
   res.json(jobs);
