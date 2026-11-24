@@ -15,6 +15,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { loginUser } from "../api/api";
+import Toast from "../components/Toast";
 const Login = () => {
   const navigate = useNavigate();
   const {
@@ -24,13 +25,27 @@ const Login = () => {
   } = useForm();
   const { login } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
   const onSubmit = async (data) => {
     try {
       const res = await loginUser(data);
       login(res.data);
-      navigate("/profile");
+      setToast({
+        open: true,
+        message: "Login successful!",
+        severity: "success",
+      });
+      window.setTimeout(() => navigate("/profile"), 2200);
     } catch (err) {
-      console.log(err);
+      setToast({
+        open: true,
+        message: "Login failed!",
+        severity: "error",
+      });
     }
   };
   return (
@@ -151,6 +166,11 @@ const Login = () => {
               Register
             </Link>
           </Typography>
+          <Toast
+            open={toast.open}
+            message={toast.message}
+            severity={toast.severity}
+          />
         </Paper>
       </Container>
     </Box>
