@@ -23,7 +23,6 @@ const Registerpage = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
-  const [submitted, setSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [toast, setToast] = useState({
     open: false,
@@ -32,23 +31,23 @@ const Registerpage = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log("data :", data);
     try {
-      const res = await registerUser(data);
+      await registerUser(data);
       setToast({
         open: true,
-        message: res.message,
+        message: "Account created successfully. You can now log in.",
         severity: "success",
       });
-      navigate("/login");
-      setSubmitted(true);
+      window.setTimeout(() => navigate("/login"), 2200);
     } catch (err) {
-      console.log("Full Error:", err);
-      console.log("Response Data:", err.response?.data);
-      console.log("Message:", err.response?.data?.message);
       setToast({
         open: true,
-        message: res.message,
+        message:
+          (typeof err.response?.data === "string"
+            ? err.response.data
+            : err.response?.data?.message) ||
+          err.message ||
+          "Unable to create your account. Please try again.",
         severity: "error",
       });
     }
@@ -201,6 +200,7 @@ const Registerpage = () => {
             open={toast.open}
             message={toast.message}
             severity={toast.severity}
+            onClose={() => setToast((current) => ({ ...current, open: false }))}
           />
         </Paper>
       </Container>
