@@ -14,6 +14,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerUser } from "../api/api";
+import Toast from "../components/Toast";
 
 const Registerpage = () => {
   const navigate = useNavigate();
@@ -24,17 +25,32 @@ const Registerpage = () => {
   } = useForm();
   const [submitted, setSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const onSubmit = async (data) => {
     console.log("data :", data);
     try {
       const res = await registerUser(data);
+      setToast({
+        open: true,
+        message: res.message,
+        severity: "success",
+      });
       navigate("/login");
       setSubmitted(true);
     } catch (err) {
       console.log("Full Error:", err);
       console.log("Response Data:", err.response?.data);
       console.log("Message:", err.response?.data?.message);
+      setToast({
+        open: true,
+        message: res.message,
+        severity: "error",
+      });
     }
   };
 
@@ -181,6 +197,11 @@ const Registerpage = () => {
               </Link>
             </Typography>
           </Box>
+          <Toast
+            open={toast.open}
+            message={toast.message}
+            severity={toast.severity}
+          />
         </Paper>
       </Container>
     </Box>
