@@ -7,10 +7,14 @@ import {
   Paper,
   Link,
   Box,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerUser } from "../api/api";
+
 const Registerpage = () => {
   const navigate = useNavigate();
   const {
@@ -19,6 +23,8 @@ const Registerpage = () => {
     formState: { errors, isSubmitting },
   } = useForm();
   const [submitted, setSubmitted] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const onSubmit = async (data) => {
     console.log("data :", data);
     try {
@@ -31,6 +37,7 @@ const Registerpage = () => {
       console.log("Message:", err.response?.data?.message);
     }
   };
+
   return (
     <Box
       sx={{
@@ -69,7 +76,6 @@ const Registerpage = () => {
               Create your account
             </Typography>
             <Typography color="text.secondary" sx={{ mt: 1 }}>
-              {" "}
               Enter your details to get started.
             </Typography>
           </Box>
@@ -85,7 +91,7 @@ const Registerpage = () => {
               autoComplete="username"
               type="text"
               {...register("username", {
-                required: "username is required",
+                required: "Username is required",
               })}
               error={Boolean(errors.username)}
               helperText={errors.username?.message}
@@ -102,25 +108,43 @@ const Registerpage = () => {
                   message: "Enter a valid email address",
                 },
               })}
-              error={Boolean(!!errors.email)}
+              error={Boolean(errors.email)}
               helperText={errors.email?.message}
             />
             <TextField
               fullWidth
               label="Password"
               autoComplete="new-password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               {...register("password", {
-                required: "Passwoed is required",
+                required: "Password is required",
                 minLength: {
                   value: 8,
                   message: "Password must be at least 8 characters",
                 },
               })}
-              error={Boolean(!!errors.password)}
+              error={Boolean(errors.password)}
               helperText={
                 errors.password?.message || "Use at least 8 characters."
               }
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        onMouseDown={(e) => e.preventDefault()}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
             <Button
               type="submit"
@@ -146,7 +170,7 @@ const Registerpage = () => {
               color="text.secondary"
               textAlign="center"
             >
-              Already registered?{""}
+              Already registered?{" "}
               <Link
                 component={RouterLink}
                 to="/login"
@@ -162,4 +186,5 @@ const Registerpage = () => {
     </Box>
   );
 };
+
 export default Registerpage;

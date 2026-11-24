@@ -7,9 +7,12 @@ import {
   Container,
   Paper,
   Link,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { loginUser } from "../api/api";
 const Login = () => {
@@ -20,6 +23,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const { login } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
   const onSubmit = async (data) => {
     try {
       const res = await loginUser(data);
@@ -91,14 +95,32 @@ const Login = () => {
             <TextField
               fullWidth
               label="Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               autoComplete="current-password"
               {...register("password", {
                 required: "password is required",
               })}
               error={!!errors.password}
               helperText={errors.password?.message}
-            ></TextField>
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        onMouseDown={(e) => e.preventDefault()}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
             <Button
               type="submit"
               variant="contained"
