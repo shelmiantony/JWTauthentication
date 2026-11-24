@@ -26,7 +26,9 @@ const Registerpage = () => {
       navigate("/login");
       setSubmitted(true);
     } catch (err) {
-      console.log(err);
+      console.log("Full Error:", err);
+      console.log("Response Data:", err.response?.data);
+      console.log("Message:", err.response?.data?.message);
     }
   };
   return (
@@ -86,7 +88,7 @@ const Registerpage = () => {
                 required: "username is required",
               })}
               error={Boolean(errors.username)}
-              helperText={errors.username?.username}
+              helperText={errors.username?.message}
             />
             <TextField
               fullWidth

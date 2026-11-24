@@ -3,8 +3,8 @@ import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
 
 const createUser = async (req, res) => {
-  const { username, email, password, role } = req.body;
-  if (!username || !email || !password || !role) {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
     return res.status(400).send("please fill all fields");
   }
   const userExist = await User.findOne({ email });
@@ -16,12 +16,12 @@ const createUser = async (req, res) => {
 
   // Keep the stored role format consistent with the schema while accepting the
   // hyphenated value used by the client.
-  const normalizedRole = role === "service-manager" ? "service_manager" : role;
+  // const normalizedRole = role === "service-manager" ? "service_manager" : role;
   const newUser = new User({
     username,
     email,
     password: hashPassword,
-    role: normalizedRole,
+    role: "customer",
   });
   await newUser.save();
   createToken(res, newUser._id);
