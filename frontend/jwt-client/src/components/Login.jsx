@@ -6,8 +6,9 @@ import {
   Box,
   Container,
   Paper,
+  Link,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { loginUser } from "../api/api";
@@ -117,6 +118,17 @@ const Login = () => {
               Login
             </Button>
           </Box>
+          <Typography variant="body2" color="text.secondary" textAlign="center">
+            Not registered?{""}
+            <Link
+              component={RouterLink}
+              to="/"
+              underline="hover"
+              sx={{ fontWeight: 600 }}
+            >
+              Register
+            </Link>
+          </Typography>
         </Paper>
       </Container>
     </Box>
