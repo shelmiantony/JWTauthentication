@@ -43,7 +43,11 @@ const Login = () => {
     } catch (err) {
       setToast({
         open: true,
-        message: "Login failed!",
+        message:
+          (typeof err.response?.data === "string"
+            ? err.response.data
+            : err.response?.data?.message) ||
+          "Login failed. Please check your details and try again.",
         severity: "error",
       });
     }
@@ -170,6 +174,7 @@ const Login = () => {
             open={toast.open}
             message={toast.message}
             severity={toast.severity}
+            onClose={() => setToast((current) => ({ ...current, open: false }))}
           />
         </Paper>
       </Container>
