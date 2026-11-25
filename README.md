@@ -118,7 +118,7 @@ Protected endpoints require a valid authentication cookie.
 
 ```bash
 git clone https://github.com/shelmiantony/JWTauthentication
-cd MERN-JWT
+cd JWTauthentication
 ```
 
 ### 2. Backend setup
@@ -203,6 +203,16 @@ Environment variables are configured separately for local development and produc
 - Improved role-based access control.
 - Automated testing.
 - Rate limiting and additional security protections.
+
+## 📸 Application Screenshots
+
+### Registration Page
+
+![Registration](./screenshots/Register.png)
+
+### Login Page
+
+![Login](./screenshots/Login.png)
 
 ## 👩‍💻 Author
 
