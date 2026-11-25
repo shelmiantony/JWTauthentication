@@ -117,7 +117,7 @@ Protected endpoints require a valid authentication cookie.
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/shelmiantony/JWTauthentication
 cd MERN-JWT
 ```
 
