@@ -41,15 +41,22 @@ const loginUser = async (req, res) => {
   }
   return res.status(400).send("Invalid credentials");
 };
+
 const logoutUser = async (req, res) => {
-  res.cookie("jwt", "", {
+  const isProduction = process.env.NODE_ENV === "production";
+
+  res.clearCookie("jwt", {
     httpOnly: true,
-    expires: new Date(0),
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+    path: "/",
   });
+
   return res.status(200).json({
     message: "Logged out successfully",
   });
 };
+
 const getProfile = async (req, res) => {
   if (req.user) {
     return res.json({

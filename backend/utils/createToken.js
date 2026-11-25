@@ -5,11 +5,14 @@ const createToken = (res, userId) => {
     expiresIn: "30d",
   });
 
+  const isProduction = process.env.NODE_ENV === "production";
+
   res.cookie("jwt", token, {
-    httpOnly: true, // prevents client-side JS access
-    secure: process.env.NODE_ENV !== "development", // only HTTPS in production
-    sameSite: "strict", // CSRF protection
-    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    path: "/",
   });
 };
 

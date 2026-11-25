@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const isMounted = true;
+    let isMounted = true;
     getProfile()
       .then(({ data }) => {
         if (isMounted) setUser(data);
