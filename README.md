@@ -4,7 +4,7 @@ A full-stack authentication application built using the MERN stack (MongoDB, Exp
 
 ## 🚀 Live Demo
 
-- **Frontend:** [Add your Vercel URL here](https://vercel.com/)
+- **Frontend:** https://jw-tauthentication.vercel.app/
 - **Backend API:** https://jwtauthentication-sp99.onrender.com
 - **Health Check:** https://jwtauthentication-sp99.onrender.com/api/health
 
