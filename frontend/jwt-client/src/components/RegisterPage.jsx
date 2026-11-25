@@ -24,6 +24,7 @@ const Registerpage = () => {
     formState: { errors, isSubmitting },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState({
     open: false,
     message: "",
@@ -31,6 +32,7 @@ const Registerpage = () => {
   });
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       await registerUser(data);
       setToast({
@@ -40,6 +42,7 @@ const Registerpage = () => {
       });
       window.setTimeout(() => navigate("/login"), 2200);
     } catch (err) {
+      setIsLoading(false);
       setToast({
         open: true,
         message:
@@ -166,7 +169,7 @@ const Registerpage = () => {
               variant="contained"
               color="primary"
               size="large"
-              disabled={isSubmitting}
+              disabled={isLoading}
               sx={{
                 mt: 0.5,
                 py: 1.4,

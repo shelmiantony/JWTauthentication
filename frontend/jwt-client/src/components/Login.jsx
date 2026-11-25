@@ -25,22 +25,29 @@ const Login = () => {
   } = useForm();
   const { login } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState({
     open: false,
     message: "",
     severity: "success",
   });
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       const res = await loginUser(data);
       login(res.data);
+
       setToast({
         open: true,
         message: "Login successful!",
         severity: "success",
       });
-      window.setTimeout(() => navigate("/profile"), 2200);
+      setTimeout(() => {
+        navigate("/profile");
+      }, 2200);
+      // window.setTimeout(() => navigate("/profile"), 2200);
     } catch (err) {
+      setIsLoading(false);
       setToast({
         open: true,
         message:
@@ -144,6 +151,7 @@ const Login = () => {
               type="submit"
               variant="contained"
               color="primary"
+              disabled={isLoading}
               size="large"
               sx={{
                 mt: 0.5,

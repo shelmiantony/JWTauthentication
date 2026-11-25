@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Avatar,
@@ -38,7 +38,8 @@ const ProfilePage = () => {
         boxSizing: "border-box",
         px: 2,
         py: 5,
-        background: "linear-gradient(135deg, #eef2ff 0%, #f8fafc 55%, #e0f2fe 100%)",
+        background:
+          "linear-gradient(135deg, #eef2ff 0%, #f8fafc 55%, #e0f2fe 100%)",
       }}
     >
       <Container maxWidth="sm">
@@ -78,7 +79,11 @@ const ProfilePage = () => {
             <Typography
               component="h1"
               variant="h4"
-              sx={{ fontWeight: 750, letterSpacing: "-0.04em", color: "#172554" }}
+              sx={{
+                fontWeight: 750,
+                letterSpacing: "-0.04em",
+                color: "#172554",
+              }}
             >
               {user?.username || "Your profile"}
             </Typography>
@@ -103,10 +108,21 @@ const ProfilePage = () => {
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ fontWeight: 700 }}
+                >
                   USERNAME
                 </Typography>
-                <Typography sx={{ mt: 0.5, fontWeight: 600, color: "#172554", overflowWrap: "anywhere" }}>
+                <Typography
+                  sx={{
+                    mt: 0.5,
+                    fontWeight: 600,
+                    color: "#172554",
+                    overflowWrap: "anywhere",
+                  }}
+                >
                   {user?.username || "Not available"}
                 </Typography>
               </Box>
@@ -118,16 +134,35 @@ const ProfilePage = () => {
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700 }}>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ fontWeight: 700 }}
+                >
                   EMAIL ADDRESS
                 </Typography>
-                <Typography sx={{ mt: 0.5, fontWeight: 600, color: "#172554", overflowWrap: "anywhere" }}>
+                <Typography
+                  sx={{
+                    mt: 0.5,
+                    fontWeight: 600,
+                    color: "#172554",
+                    overflowWrap: "anywhere",
+                  }}
+                >
                   {user?.email || "Not available"}
                 </Typography>
               </Box>
             </Box>
 
-            <Box sx={{ mt: 2.5, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
+            <Box
+              sx={{
+                mt: 2.5,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 2,
+              }}
+            >
               <Typography variant="body2" color="text.secondary">
                 Account type
               </Typography>
